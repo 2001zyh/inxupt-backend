@@ -113,4 +113,24 @@ public class PostController {
                                       @RequestHeader(value = "token", required = false) String token) {
         return postService.getPost(postId, token);
     }
+
+    /**
+     * 展示全部帖子或者根据主标签展示全部帖子
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @param sortedBy
+     * @param token
+     * @return
+     */
+    @GetMapping("/post")
+    @ApiOperation("展示全部帖子或者根据主标签展示全部帖子")
+    public ResponseVO<PageInfo> listAllOrListByCategory(
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false, defaultValue = "1") Integer sortedBy,
+            @RequestHeader(value = "token", required = false) String token) {
+        return postService.listAll(categoryId, null, null, null, token, pageNum, pageSize, sortedBy);
+    }
 }
